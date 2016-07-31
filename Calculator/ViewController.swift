@@ -10,6 +10,19 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var displayResultLabel: UILabel!
+    
+    @IBAction func numberPressed(sender: UIButton) {
+      
+        
+      let number = sender.currentTitle!
+      if displayResultLabel.text?.characters.count < 20 {
+      
+        displayResultLabel.text = displayResultLabel.text! + number
+      }
+   }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
