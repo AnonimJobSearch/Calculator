@@ -13,6 +13,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var displayResultLabel: UILabel!
    var stillTyping = false // check zero
    var firstOperand: Double = 0 // for few numbers
+   var secondOperand: Double = 0
+   var operationSign: String = ""
    var currentInput: Double {
       get {
          return Double(displayResultLabel.text!)!
@@ -39,10 +41,35 @@ class ViewController: UIViewController {
    }
     
    @IBAction func twoOperandsSignPressed(sender: UIButton) {
+      operationSign = sender.currentTitle!
       firstOperand = currentInput
-      print(firstOperand)
+     
       stillTyping = false
    }
+   func oprateWithTwoOperands(operation: (Double,Double)->Double){
+      currentInput = operation(firstOperand, secondOperand)
+      stillTyping = false
+   }
+   
+    @IBAction func equalitySignPressed(sender: UIButton) {
+      
+      if stillTyping {
+         secondOperand = currentInput
+      }
+      switch  operationSign {
+         
+      case "+":
+         oprateWithTwoOperands{$0 + $1}
+      case "-":
+         oprateWithTwoOperands{$0 - $1}
+      case "÷":
+         oprateWithTwoOperands{$0 / $1}
+      case "✕":
+         oprateWithTwoOperands{$0 * $1}
+      default:
+         break
+      }
+    }
     
   
 
