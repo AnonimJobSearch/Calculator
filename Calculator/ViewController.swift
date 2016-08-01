@@ -15,6 +15,7 @@ class ViewController: UIViewController {
    var firstOperand: Double = 0 // for few numbers
    var secondOperand: Double = 0
    var operationSign: String = ""
+   var dotIsPlaced = false
    var currentInput: Double {
       get {
          return Double(displayResultLabel.text!)!
@@ -23,6 +24,12 @@ class ViewController: UIViewController {
          displayResultLabel.text = "\(newValue)"
          stillTyping = false
       }
+   }
+   override func preferredStatusBarStyle() -> UIStatusBarStyle {
+      return .LightContent
+   }
+   override func prefersStatusBarHidden() -> Bool {
+      return true
    }
     
     @IBAction func numberPressed(sender: UIButton) {
@@ -43,7 +50,7 @@ class ViewController: UIViewController {
    @IBAction func twoOperandsSignPressed(sender: UIButton) {
       operationSign = sender.currentTitle!
       firstOperand = currentInput
-     
+     dotIsPlaced = false
       stillTyping = false
    }
    func oprateWithTwoOperands(operation: (Double,Double)->Double){
@@ -56,6 +63,7 @@ class ViewController: UIViewController {
       if stillTyping {
          secondOperand = currentInput
       }
+      dotIsPlaced = false
       switch  operationSign {
          
       case "+":
@@ -71,6 +79,38 @@ class ViewController: UIViewController {
       }
     }
     
+   @IBAction func clearButtonPressed(sender: UIButton) {
+      firstOperand = 0
+      secondOperand = 0
+      currentInput = 0
+      displayResultLabel.text = "0"
+      stillTyping = false
+      operationSign = ""
+      dotIsPlaced = false
+   }
+   @IBAction func plusMinusButtonPressed(sender: UIButton) {
+      currentInput = -currentInput
+   }
+   @IBAction func PersentageButtonPressed(sender: UIButton) {
+      if firstOperand == 0{
+         currentInput = currentInput/100
+      } else {
+         secondOperand = firstOperand * currentInput / 100
+      }
+      stillTyping = false
+   }
+   @IBAction func squareRootButtonPressed(sender: UIButton) {
+      currentInput = sqrt(currentInput)
+   }
+   @IBAction func dotButtonPresed(sender: UIButton) {
+      if stillTyping && !dotIsPlaced {
+         displayResultLabel.text = displayResultLabel.text! + "."
+         dotIsPlaced = true
+      } else if !stillTyping && !dotIsPlaced {
+         displayResultLabel.text = "0."
+         stillTyping = true
+      }
+   }
   
 
 }
