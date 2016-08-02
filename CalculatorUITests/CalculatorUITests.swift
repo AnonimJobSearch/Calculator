@@ -7,11 +7,15 @@
 //
 
 import XCTest
+@testable import Calculator
 
 class CalculatorUITests: XCTestCase {
+    var vc: ViewController!
         
     override func setUp() {
         super.setUp()
+        let storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        vc = storyboard.instantiateInitialViewController() as! ViewController
         
         // Put setup code here. This method is called before the invocation of each test method in the class.
         
@@ -27,6 +31,12 @@ class CalculatorUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
+    
+    func testPercentageCalculator(){
+        let p = vc.equalitySignPressed(<#T##sender: UIButton##UIButton#>)
+    }
+    
+    
     
     func testExample() {
         // Use recording to get started writing UI tests.
